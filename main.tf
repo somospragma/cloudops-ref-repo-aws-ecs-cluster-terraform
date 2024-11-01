@@ -1,4 +1,5 @@
 resource "aws_ecs_cluster" "cluster" {
+  provider = aws.project
   for_each = {
     for item in var.cluster_config : item.application => {
       containerInsights       = item.containerInsights
@@ -20,6 +21,7 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_cluster_capacity_providers" "cluster_capacity_providers" {
+  provider = aws.project
   for_each = {
     for item in var.cluster_config : item.application => item
     if item.enableCapacityProviders
