@@ -29,4 +29,5 @@ resource "aws_ecs_cluster_capacity_providers" "cluster_capacity_providers" {
 
   cluster_name = aws_ecs_cluster.cluster[each.key].name
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
+  depends_on = [ aws_ecs_cluster.cluster ]
 }
