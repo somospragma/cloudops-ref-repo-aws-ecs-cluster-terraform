@@ -1,3 +1,7 @@
+###########################################
+####### ECS Cluster Resources #############
+###########################################
+
 resource "aws_ecs_cluster" "cluster" {
   provider = aws.project
   for_each = {
