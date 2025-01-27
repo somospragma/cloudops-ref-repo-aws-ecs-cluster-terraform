@@ -19,7 +19,7 @@ resource "aws_ecs_cluster" "cluster" {
   }
 
   tags = {
-    Name        = lower(join("-", [var.client, var.project, var.environment, "cluster", each.key]))
+    Name        = lower(join("-", [var.client, var.project, var.environment, "cluster", each.key, each.value["index"] + 1]))
     Application = each.key
   }
 }
