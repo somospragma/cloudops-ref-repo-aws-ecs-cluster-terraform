@@ -32,16 +32,6 @@ cloudops-ref-repo-aws-ecs-cluster-terraform/
 - `CHANGELOG.md` y `README.md` también están en el directorio raíz para fácil acceso.
 - La carpeta `sample/` contiene un ejemplo de implementación del módulo.
 
-## Seguridad & Cumplimiento
- 
-Consulta a continuación la fecha y los resultados de nuestro escaneo de seguridad y cumplimiento.
- 
-<!-- BEGIN_BENCHMARK_TABLE -->
-| Benchmark | Date | Version | Description | 
-| --------- | ---- | ------- | ----------- | 
-| ![checkov](https://img.shields.io/badge/checkov-passed-green) | 2023-09-20 | 3.2.232 | Escaneo profundo del plan de Terraform en busca de problemas de seguridad y cumplimiento |
-<!-- END_BENCHMARK_TABLE -->
-
 ## Provider Configuration
 
 Este módulo requiere la configuración de un provider específico para el proyecto. Debe configurarse de la siguiente manera:
@@ -51,6 +41,10 @@ sample/ecs_cluster/providers.tf
 provider "aws" {
   alias = "alias01"
   # ... otras configuraciones del provider
+  
+  default_tags {
+    tags = var.common_tags
+  }
 }
 
 sample/ecs_cluster/main.tf
@@ -74,29 +68,29 @@ module "ecs_cluster" {
   }
 
   # Common configuration
-  profile     = "profile01"
-  aws_region  = "us-east-1"
-  environment = "dev"
   client      = "cliente01"
   project     = "proyecto01"
-  common_tags = {
-    environment   = "dev"
-    project-name  = "proyecto01"
-    cost-center   = "xxx"
-    owner         = "xxx"
-    area          = "xxx"
-    provisioned   = "xxx"
-    datatype      = "xxx"
-  }
+  environment = "dev"
 
   # ECS Cluster configuration 
-  cluster_config = [
-    {
-      application             = "app01"
+  cluster_config = {
+    "app01" = {
       containerInsights       = "enabled"
       enableCapacityProviders = true
+      additional_tags         = {
+        service-tier = "standard"
+        backup-policy = "daily"
+      }
+    },
+    "app02" = {
+      containerInsights       = "enabled"
+      enableCapacityProviders = false
+      additional_tags         = {
+        service-tier = "premium"
+        backup-policy = "hourly"
+      }
     }
-  ]
+  }
 }
 ```
 
@@ -118,20 +112,22 @@ module "ecs_cluster" {
 | Name | Type |
 |------|------|
 | [aws_ecs_cluster.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster) | resource |
+| [aws_ecs_cluster_capacity_providers.cluster_capacity_providers](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster_capacity_providers) | resource |
 
 ## Variables
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="application"></a> [application](#input\application) | Application name.| `string` | n/a | yes |
+| <a name="cluster_config"></a> [cluster_config](#input\cluster_config) | Mapa de configuraciones de clusters ECS donde la clave es el nombre de la aplicación.| `map(object)` | n/a | yes |
 | <a name="containerInsights"></a> [containerInsights](#input\containerInsights) | Value to assign to the setting. Valid values: enabled, disabled.| `string` | n/a | yes |
 | <a name="enableCapacityProviders"></a> [enableCapacityProviders](#input\enableCapacityProviders) | If true, is enabled FARGATE and FARGATE_SPOT.| `bool` | n/a | yes |
+| <a name="additional_tags"></a> [additional_tags](#input\additional_tags) | Additional tags to apply to the ECS cluster.| `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="cluster_info.cluster_name"></a> [ecr_info.cluster_info.cluster_name](#output\cluster_info.cluster_name) | Cluster name |
-| <a name="cluster_info.cluster_arn"></a> [ecr_info.cluster_info.cluster_arn](#output\cluster_info.cluster_arn) | Cluster ARN |
-| <a name="cluster_info.cluster_id"></a> [ecr_info.cluster_info.cluster_id](#output\cluster_info.cluster_id) | Cluster ID |
-| <a name="cluster_info.application"></a> [ecr_info.cluster_info.application](#output\cluster_info.application) | Application name |
+| <a name="cluster_info.cluster_name"></a> [cluster_info.cluster_name](#output\cluster_info.cluster_name) | Cluster name |
+| <a name="cluster_info.cluster_arn"></a> [cluster_info.cluster_arn](#output\cluster_info.cluster_arn) | Cluster ARN |
+| <a name="cluster_info.cluster_id"></a> [cluster_info.cluster_id](#output\cluster_info.cluster_id) | Cluster ID |
+| <a name="cluster_info.application"></a> [cluster_info.application](#output\cluster_info.application) | Application name |
