@@ -6,6 +6,10 @@ Este módulo facilita la creación de un Cluster ECS en AWS con todas las mejore
 
 Consulta CHANGELOG.md para la lista de cambios de cada versión. *Recomendamos encarecidamente que en tu código fijes la versión exacta que estás utilizando para que tu infraestructura permanezca estable y actualices las versiones de manera sistemática para evitar sorpresas.*
 
+## Arquitectura
+
+![Diagrama de Arquitectura](./cloudOps-iac-ecs-cluster.png)
+
 ## Características
 
 - Creación de clusters ECS con nomenclatura estandarizada
@@ -29,6 +33,7 @@ cloudops-ref-repo-aws-ecs-cluster-terraform/
 ├── .gitignore
 ├── CHANGELOG.md
 ├── data.tf
+├── diagram.mermaid
 ├── main.tf
 ├── outputs.tf
 ├── providers.tf
@@ -39,7 +44,17 @@ cloudops-ref-repo-aws-ecs-cluster-terraform/
 - Los archivos principales del módulo (`data.tf`, `main.tf`, `outputs.tf`, `variables.tf`, `providers.tf`) se encuentran en el directorio raíz.
 - `CHANGELOG.md` y `README.md` también están en el directorio raíz para fácil acceso.
 - La carpeta `sample/` contiene un ejemplo de implementación del módulo.
+- `diagram.mermaid` contiene el diagrama de arquitectura del módulo.
 
+## Seguridad & Cumplimiento
+ 
+Consulta a continuación la fecha y los resultados de nuestro escaneo de seguridad y cumplimiento.
+ 
+<!-- BEGIN_BENCHMARK_TABLE -->
+| Benchmark | Date | Version | Description | 
+| --------- | ---- | ------- | ----------- | 
+| ![checkov](https://img.shields.io/badge/checkov-passed-green) | 2023-09-20 | 3.2.232 | Escaneo profundo del plan de Terraform en busca de problemas de seguridad y cumplimiento |
+<!-- END_BENCHMARK_TABLE -->
 
 ## Provider Configuration
 
