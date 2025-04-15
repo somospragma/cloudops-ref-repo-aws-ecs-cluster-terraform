@@ -40,15 +40,6 @@ cloudops-ref-repo-aws-ecs-cluster-terraform/
 - `CHANGELOG.md` y `README.md` también están en el directorio raíz para fácil acceso.
 - La carpeta `sample/` contiene un ejemplo de implementación del módulo.
 
-## Seguridad & Cumplimiento
- 
-Consulta a continuación la fecha y los resultados de nuestro escaneo de seguridad y cumplimiento.
- 
-<!-- BEGIN_BENCHMARK_TABLE -->
-| Benchmark | Date | Version | Description | 
-| --------- | ---- | ------- | ----------- | 
-| ![checkov](https://img.shields.io/badge/checkov-passed-green) | 2023-09-20 | 3.2.232 | Escaneo profundo del plan de Terraform en busca de problemas de seguridad y cumplimiento |
-<!-- END_BENCHMARK_TABLE -->
 
 ## Provider Configuration
 
