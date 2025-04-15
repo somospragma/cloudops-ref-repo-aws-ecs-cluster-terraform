@@ -6,7 +6,7 @@ module "ecs_cluster_functionality" {
   source = "../../"
 
   providers = {
-    aws.project = aws.alias01              #Write manually alias (the same alias name configured in providers.tf)
+    aws.project = aws.principal              #Write manually alias (the same alias name configured in providers.tf)
   }
 
   # Common configuration
@@ -15,11 +15,14 @@ module "ecs_cluster_functionality" {
   environment = var.environment
 
   # ECS Cluster configuration
-  cluster_config = [
-    {
-      application             = var.application
+  cluster_config = {
+    "app01" = {
       containerInsights       = "enabled"
       enableCapacityProviders = true
+      additional_tags         = {
+        service-tier = "standard"
+        backup-policy = "daily"
+      }
     }
-  ]
+  }
 }
