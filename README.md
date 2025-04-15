@@ -46,16 +46,6 @@ cloudops-ref-repo-aws-ecs-cluster-terraform/
 - La carpeta `sample/` contiene un ejemplo de implementación del módulo.
 - `diagram.mermaid` contiene el diagrama de arquitectura del módulo.
 
-## Seguridad & Cumplimiento
- 
-Consulta a continuación la fecha y los resultados de nuestro escaneo de seguridad y cumplimiento.
- 
-<!-- BEGIN_BENCHMARK_TABLE -->
-| Benchmark | Date | Version | Description | 
-| --------- | ---- | ------- | ----------- | 
-| ![checkov](https://img.shields.io/badge/checkov-passed-green) | 2023-09-20 | 3.2.232 | Escaneo profundo del plan de Terraform en busca de problemas de seguridad y cumplimiento |
-<!-- END_BENCHMARK_TABLE -->
-
 ## Provider Configuration
 
 Este módulo requiere la configuración de un provider específico para el proyecto. Debe configurarse de la siguiente manera:
