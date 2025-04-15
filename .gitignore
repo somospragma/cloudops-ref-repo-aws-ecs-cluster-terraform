@@ -38,3 +38,4 @@ terraform.rc
 
 #Ignore
 AmazonQ_Unified_Rules.md
+.terraform.lock.hcl
